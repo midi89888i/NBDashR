@@ -49,7 +49,7 @@ struct BMWSportTheme: DashboardThemeRenderer {
         drawTopCapsules(in: ctx, rect: rect, snapshot: snapshot)
         drawSpeedCluster(in: ctx, snapshot: snapshot)
         drawPowerArcs(in: ctx, snapshot: snapshot, power: power)
-        drawPowerReadout(in: ctx, power: power)
+        drawPowerReadout(in: ctx, snapshot: snapshot, power: power)
         drawBottomStrip(in: ctx, rect: rect, snapshot: snapshot)
     }
 
@@ -213,7 +213,7 @@ struct BMWSportTheme: DashboardThemeRenderer {
 
     // MARK: - 功率读数(右侧,"动态 PRO" 标题 + %.1fkW/%.0fW + 等级标签)
     // 原版: "%.1f"+"kW"(>=1000W)或 "%.0f"+"W";等级字 IDLE/REGEN/ECO/SPORT/BOOST/MAX
-    private func drawPowerReadout(in ctx: CGContext, power: PowerReading) {
+    private func drawPowerReadout(in ctx: CGContext, snapshot: TelemetrySnapshot, power: PowerReading) {
         // "动态 PRO" 角标(原版字符串,左上 x≈62-72 区域)
         ctx.drawText("动态 PRO", center: CGPoint(x: 92, y: 132),
                      size: 17, weight: .bold, color: Pal.cyan, align: .left)
