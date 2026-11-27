@@ -18,7 +18,7 @@ final class AppController: ObservableObject {
         didSet { defaults.set(selectedThemeID, forKey: "theme.id") }
     }
     @Published private(set) var isStreaming = false
-    @Published private(set) var targetIP: String {
+    @Published var targetIP: String {
         didSet { defaults.set(targetIP, forKey: "target.ip") }
     }
     @Published var isDemoMode = false

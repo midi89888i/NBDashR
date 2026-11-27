@@ -26,7 +26,7 @@ struct DaylightCleanTheme: DashboardThemeRenderer {
                      size: 44, weight: .black, color: pwColor, monoDigits: true)
 
         // 左上:电量超大
-        let (pctText, _) = batteryText(snapshot)
+        let (pctText, _) = ctx.batteryText(snapshot)
         let pctColor: UIColor = {
             guard let p = snapshot.batteryPercent else { return .darkGray }
             return p > 20 ? .white : UIColor(red: 1, green: 0.25, blue: 0.2, alpha: 1)
