@@ -17,7 +17,7 @@ final class UDPSocket {
         self.port = port
         connection = NWConnection(host: NWEndpoint.Host(host),
                                   port: NWEndpoint.Port(rawValue: port)!,
-                                  parameters: .udp)
+                                  using: .udp)
     }
 
     func start() {

@@ -91,7 +91,7 @@ final class H264Encoder {
                                         presentationTimeStamp: timestamp,
                                         duration: CMTime(value: 1, timescale: CMTimeScale(fps)),
                                         frameProperties: props as CFDictionary,
-                                        infoFlagsOut: &flags, outputHandler: nil)
+                                        infoFlagsOut: &flags, outputHandler: { _, _, _ in })
     }
 
     private func handleEncoded(_ sampleBuffer: CMSampleBuffer) {
