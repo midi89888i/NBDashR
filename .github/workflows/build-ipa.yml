@@ -1,0 +1,33 @@
+name: Build unsigned IPA
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build unsigned app
+        run: |
+          xcodebuild -project NBDashR.xcodeproj -scheme NBDashR \
+            -configuration Release -sdk iphoneos -arch arm64 \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM="" \
+            -derivedDataPath DerivedData build
+
+      - name: Package IPA
+        run: |
+          mkdir -p out/Payload
+          cp -r DerivedData/Build/Products/Release-iphoneos/NBDashR.app out/Payload/
+          cd out && zip -r ../NBDashR-unsigned.ipa Payload && cd ..
+          shasum -a 256 NBDashR-unsigned.ipa > NBDashR-unsigned.ipa.sha256
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NBDashR-unsigned-ipa
+          path: |
+            NBDashR-unsigned.ipa
+            NBDashR-unsigned.ipa.sha256
